@@ -72,9 +72,10 @@ def hit_api_and_get_data():
         send_telegram_message('No center found with available vaccine slots')
 
 
-min_capacity = sys.argv[1]
-district_id = sys.argv[2]
-telegram_chat_id = sys.argv[3]
-telegram_bot_id = sys.argv[4]
+if __name__ == "__main__":
+    min_capacity = sys.argv[1]
+    district_id = sys.argv[2]
+    telegram_chat_id = sys.argv[3]
+    telegram_bot_id = sys.argv[4]
 
-hit_api_and_get_data()
+    hit_api_and_get_data()
