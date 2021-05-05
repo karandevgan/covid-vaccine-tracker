@@ -78,5 +78,8 @@ if __name__ == "__main__":
     district_id = os.getenv("TRACKER_DISTRICT_ID")
     telegram_chat_id = os.getenv("TRACKER_TELEGRAM_ID")
     telegram_bot_id = os.getenv("TRACKER_TELEGRAM_BOT_ID")
-
+    print('Min Capacity', min_capacity)
+    print('Distt. ', district_id)
+    print('telegram_chat_id ', telegram_chat_id)
+    print('telegram_bot_id ', telegram_bot_id)
     hit_api_and_get_data()
