@@ -1,3 +1,4 @@
+import os
 import sys
 
 import requests
@@ -73,9 +74,9 @@ def hit_api_and_get_data():
 
 
 if __name__ == "__main__":
-    min_capacity = sys.argv[1]
-    district_id = sys.argv[2]
-    telegram_chat_id = sys.argv[3]
-    telegram_bot_id = sys.argv[4]
+    min_capacity = os.getenv("TRACKER_MIN_CAPACITY")
+    district_id = os.getenv("TRACKER_DISTRICT_ID")
+    telegram_chat_id = os.getenv("TRACKER_TELEGRAM_ID")
+    telegram_bot_id = os.getenv("TRACKER_TELEGRAM_BOT_ID")
 
     hit_api_and_get_data()
