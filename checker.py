@@ -42,31 +42,34 @@ def hit_api_and_get_data():
         try:
             print("Calling API for date ", date)
             centers_request = requests.get(url, params, headers=headers)
-            print(centers_request.content)
-            print(centers_request.request.headers)
-            centers_request_data = centers_request.json()
-            centers = centers_request_data['centers']
-            filtered_sessions_centers = []
-            print("Filtering centers and sessions")
-            for center in centers:
-                center['sessions'] = [session for session in center['sessions'] if
-                                      session['min_age_limit'] < 45
-                                      and session['available_capacity'] >= int(min_capacity)
-                                      ]
-                session_dates = ", ".join(
-                    [session['date'] + ': ' + str(session['available_capacity']) for session in center['sessions']])
-                center['session_dates'] = session_dates
-                if len(center['sessions']) > 0:
-                    filtered_sessions_centers.append(center)
+            if centers_request.status_code != 200:
+                print(centers_request.content)
+                print(centers_request.request.headers)
+                send_telegram_message('Status Code is ' + str(centers_request.status_code))
+            else:
+                centers_request_data = centers_request.json()
+                centers = centers_request_data['centers']
+                filtered_sessions_centers = []
+                print("Filtering centers and sessions")
+                for center in centers:
+                    center['sessions'] = [session for session in center['sessions'] if
+                                          session['min_age_limit'] < 45
+                                          and session['available_capacity'] >= int(min_capacity)
+                                          ]
+                    session_dates = ", ".join(
+                        [session['date'] + ': ' + str(session['available_capacity']) for session in center['sessions']])
+                    center['session_dates'] = session_dates
+                    if len(center['sessions']) > 0:
+                        filtered_sessions_centers.append(center)
 
-            center_pincodes = [center['name'] + ", " + str(center['pincode']) + ", " + center['session_dates'] for
-                               center in filtered_sessions_centers]
+                center_pincodes = [center['name'] + ", " + str(center['pincode']) + ", " + center['session_dates'] for
+                                   center in filtered_sessions_centers]
 
-            print("Available Slots ", len(center_pincodes))
-            print("Sending telegram message")
-            for center_pincode in center_pincodes:
-                send_telegram_message(center_pincode)
-                msg_sent = True
+                print("Available Slots ", len(center_pincodes))
+                print("Sending telegram message")
+                for center_pincode in center_pincodes:
+                    send_telegram_message(center_pincode)
+                    msg_sent = True
             time.sleep(5)
 
         except Exception as e:
