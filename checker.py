@@ -34,7 +34,20 @@ def hit_api_and_get_data():
     dates = [current_date_formatted, current_date_plus_7_formatted, current_date_plus_14_formatted]
     for date in dates:
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.49'
+            'accept': 'application/json, text/plain, */*',
+            'accept-encoding': 'gzip, deflate, br',
+            'accept-language': 'en-IN,en-GB;q=0.9,en;q=0.8,en-US;q=0.7',
+            'cache-control': 'no-cache',
+            'dnt': '1',
+            'origin': 'https://www.cowin.gov.in',
+            'pragma': 'no-cache',
+            'referer': 'https://www.cowin.gov.in/',
+            'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="90", "Microsoft Edge";v="90"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-fetch-dest': 'empty',
+            'sec-fetch-mode': 'cors',
+            'sec-fetch-site': 'cross-site',
+            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36 Edg/90.0.818.49'
         }
         url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict'
         params = {'district_id': district_id, 'date': date}
