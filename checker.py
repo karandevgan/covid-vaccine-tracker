@@ -42,7 +42,8 @@ def hit_api_and_get_data():
         try:
             print("Calling API for date ", date)
             centers_request = requests.get(url, params, headers=headers)
-            print('Status Code', centers_request.status_code)
+            print(centers_request.content)
+            print(centers_request.request.headers)
             centers_request_data = centers_request.json()
             centers = centers_request_data['centers']
             filtered_sessions_centers = []
