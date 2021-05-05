@@ -1,5 +1,6 @@
 import os
 import sys
+import traceback
 
 import requests
 import datetime
@@ -68,7 +69,7 @@ def hit_api_and_get_data():
 
         except Exception as e:
             send_telegram_message('Error ' + str(e))
-            print("Error " + str(e))
+            traceback.print_exc()
     if not msg_sent:
         send_telegram_message('No center found with available vaccine slots')
 
